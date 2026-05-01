@@ -40,6 +40,26 @@ backend/
 5. Seed sample data:
    - `npm run seed`
 
+## Render Deployment
+
+- Set the Render service root directory to `backend`.
+- Use build command: `npm install`
+- Use start command: `npm start`
+- Add environment variables in Render manually.
+
+Required Render environment variables:
+
+- `DB_URL=mongodb+srv://YOUR_USERNAME:YOUR_PASSWORD@YOUR_CLUSTER.mongodb.net/interview-preparation-system`
+- `MONGO_URI=mongodb+srv://YOUR_USERNAME:YOUR_PASSWORD@YOUR_CLUSTER.mongodb.net/interview-preparation-system`
+- `JWT_SECRET=your-secret`
+- `APP_BASE_URL=https://your-frontend-url.onrender.com`
+
+Important:
+
+- Do not use `mongodb://127.0.0.1:27017/...` on Render.
+- `127.0.0.1` only works for local development on your own machine.
+- Use MongoDB Atlas or another cloud MongoDB provider for Render deployments.
+
 ## Demo Credentials (after seed)
 
 - Student: `student@example.com` / `Password@123`
