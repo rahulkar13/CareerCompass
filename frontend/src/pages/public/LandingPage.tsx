@@ -213,6 +213,51 @@ export const LandingPage = () => {
   }, [])
 
   useEffect(() => {
+    let mounted = true
+
+    const syncSession = async () => {
+      const storedSession = authApi.getSession()
+      if (!mounted) return
+
+      if (!storedSession) {
+        setSession(null)
+        return
+      }
+
+      setSession(storedSession)
+
+      try {
+        const refreshed = await authApi.refreshSession()
+        if (!mounted) return
+        setSession(refreshed)
+      } catch {
+        if (!mounted) return
+        setSession(authApi.getSession())
+      }
+    }
+
+    const handleStorage = () => {
+      void syncSession()
+    }
+
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible') {
+        void syncSession()
+      }
+    }
+
+    void syncSession()
+    window.addEventListener('storage', handleStorage)
+    document.addEventListener('visibilitychange', handleVisibilityChange)
+
+    return () => {
+      mounted = false
+      window.removeEventListener('storage', handleStorage)
+      document.removeEventListener('visibilitychange', handleVisibilityChange)
+    }
+  }, [])
+
+  useEffect(() => {
     setContactForm((current) => ({
       ...current,
       fullName: current.fullName || session?.user.name || '',
