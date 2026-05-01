@@ -12,6 +12,10 @@ const start = async (): Promise<void> => {
 }
 
 start().catch((error) => {
-  console.error('Failed to start server', error)
+  const message = error instanceof Error ? error.message : String(error)
+  console.error('Failed to start server:', message)
+  if (error instanceof Error && error.stack) {
+    console.error(error.stack)
+  }
   process.exit(1)
 })

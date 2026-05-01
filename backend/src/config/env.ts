@@ -10,9 +10,17 @@ if (fs.existsSync(explicitEnvPath)) {
   dotenv.config()
 }
 
-const dbUrl = process.env.DB_URL ?? process.env.MONGO_URI ?? 'mongodb://127.0.0.1:27017/interview-preparation-system'
+const isProduction = process.env.NODE_ENV === 'production'
+const configuredDbUrl = process.env.DB_URL ?? process.env.MONGO_URI ?? ''
+
+if (isProduction && !configuredDbUrl) {
+  throw new Error('Missing DB_URL (or MONGO_URI) environment variable in production. Add it in your hosting provider settings before starting the backend.')
+}
+
+const dbUrl = configuredDbUrl || 'mongodb://127.0.0.1:27017/interview-preparation-system'
 
 export const env = {
+  isProduction,
   port: Number(process.env.PORT ?? 5000),
   dbUrl,
   mongoUri: dbUrl,
