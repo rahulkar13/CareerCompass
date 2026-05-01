@@ -4,9 +4,13 @@
   "main": "dist/server.js",
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
+    "postinstall": "npm run build",
     "build": "tsc",
     "start": "node dist/server.js",
     "seed": "ts-node-dev --transpile-only src/seeds/seed.ts"
+  },
+  "engines": {
+    "node": "22.x"
   },
   "keywords": [],
   "author": "",
