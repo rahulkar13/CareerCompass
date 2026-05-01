@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { RouterProvider } from 'react-router-dom'
 import { ResumeSessionProvider } from './context/ResumeSessionContext'
 import { appRouter } from './routes/appRoutes'
+import { authApi } from './services/api'
 
 const THEME_KEY = 'interview-prep-theme'
 
@@ -25,6 +26,29 @@ const App = () => {
 
     return () => {
       window.removeEventListener('pointermove', handlePointerMove)
+    }
+  }, [])
+
+  useEffect(() => {
+    let mounted = true
+
+    const validateStoredSession = async () => {
+      if (!mounted) return
+      await authApi.validateSession()
+    }
+
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible') {
+        void validateStoredSession()
+      }
+    }
+
+    void validateStoredSession()
+    document.addEventListener('visibilitychange', handleVisibilityChange)
+
+    return () => {
+      mounted = false
+      document.removeEventListener('visibilitychange', handleVisibilityChange)
     }
   }, [])
 

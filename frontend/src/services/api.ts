@@ -148,6 +148,16 @@ export const authApi = {
     const user = await authApi.getCurrentUser()
     return saveSession({ token: session.token, user })
   },
+  validateSession: async (): Promise<AuthSession | null> => {
+    const session = authApi.getSession()
+    if (!session) return null
+    try {
+      return await authApi.refreshSession()
+    } catch {
+      authApi.logout()
+      return null
+    }
+  },
   getSession: (): AuthSession | null => {
     const raw = localStorage.getItem(AUTH_STORAGE_KEY)
     if (!raw) return null
