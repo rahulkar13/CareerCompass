@@ -1,0 +1,58 @@
+[
+  {
+    "id": "code-data-001",
+    "domain": "data_analytics",
+    "role": "Data Analyst",
+    "topic": "data cleaning logic",
+    "difficulty": "Beginner",
+    "title": "Count Missing Values",
+    "problemStatement": "You are given N values separated by spaces. A missing value is represented by the word NULL. Print how many missing values are present.",
+    "inputFormat": "The first line contains N. The second line contains N space-separated tokens.",
+    "outputFormat": "Print one integer representing the count of NULL values.",
+    "constraints": ["1 <= N <= 10^5"],
+    "sampleInput": "6\n10 NULL 25 NULL 30 18",
+    "sampleOutput": "2",
+    "explanation": "Two values are equal to NULL.",
+    "supportedLanguages": ["python", "javascript", "java", "cpp"],
+    "timeLimit": 2,
+    "memoryLimit": 256,
+    "visibleTestCases": [
+      { "input": "6\n10 NULL 25 NULL 30 18", "output": "2", "explanation": "Two missing values." },
+      { "input": "4\n1 2 3 4", "output": "0", "explanation": "No missing values." }
+    ],
+    "hiddenTestCases": [
+      { "input": "5\nNULL NULL NULL 4 5", "output": "3" },
+      { "input": "1\nNULL", "output": "1" },
+      { "input": "3\nabc def ghi", "output": "0" }
+    ],
+    "tags": ["data cleaning", "strings", "counting"]
+  },
+  {
+    "id": "code-data-002",
+    "domain": "data_analytics",
+    "role": "Data Analyst",
+    "topic": "aggregation",
+    "difficulty": "Intermediate",
+    "title": "Average Sales by Store",
+    "problemStatement": "Given N sales values for a single store, print the floor value of the average sale.",
+    "inputFormat": "The first line contains N. The second line contains N space-separated integers.",
+    "outputFormat": "Print the floor of the average.",
+    "constraints": ["1 <= N <= 10^5", "0 <= sales[i] <= 10^6"],
+    "sampleInput": "5\n10 20 30 40 50",
+    "sampleOutput": "30",
+    "explanation": "The sum is 150 and the average is 30.",
+    "supportedLanguages": ["python", "javascript", "java", "cpp"],
+    "timeLimit": 2,
+    "memoryLimit": 256,
+    "visibleTestCases": [
+      { "input": "5\n10 20 30 40 50", "output": "30", "explanation": "Average is 30." },
+      { "input": "3\n1 2 2", "output": "1", "explanation": "Average is 1.66, so floor is 1." }
+    ],
+    "hiddenTestCases": [
+      { "input": "4\n100 200 300 400", "output": "250" },
+      { "input": "1\n999", "output": "999" },
+      { "input": "6\n5 5 5 5 5 5", "output": "5" }
+    ],
+    "tags": ["aggregation", "math", "analytics basics"]
+  }
+]

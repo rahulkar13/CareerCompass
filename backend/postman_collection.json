@@ -1,0 +1,51 @@
+{
+  "info": {
+    "name": "CareerCompass API",
+    "_postman_id": "8ea6f57d-ec2d-4faa-9e8b-7cc8f56a2d5b",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Auth - Register",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": { "raw": "{{baseUrl}}/auth/register", "host": ["{{baseUrl}}"], "path": ["auth", "register"] },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Demo Student\",\n  \"email\": \"demo@student.com\",\n  \"password\": \"Password@123\",\n  \"role\": \"student\"\n}"
+        }
+      }
+    },
+    {
+      "name": "Auth - Login",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": { "raw": "{{baseUrl}}/auth/login", "host": ["{{baseUrl}}"], "path": ["auth", "login"] },
+        "body": { "mode": "raw", "raw": "{\n  \"email\": \"student@example.com\",\n  \"password\": \"Password@123\"\n}" }
+      }
+    },
+    {
+      "name": "Resumes - Upload",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "url": { "raw": "{{baseUrl}}/resumes/upload", "host": ["{{baseUrl}}"], "path": ["resumes", "upload"] },
+        "body": { "mode": "formdata", "formdata": [{ "key": "resume", "type": "file", "src": "" }] }
+      }
+    },
+    {
+      "name": "Reports - Analytics",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "url": { "raw": "{{baseUrl}}/reports/analytics", "host": ["{{baseUrl}}"], "path": ["reports", "analytics"] }
+      }
+    }
+  ],
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:5000/api" },
+    { "key": "token", "value": "" }
+  ]
+}

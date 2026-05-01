@@ -1,0 +1,85 @@
+[
+  {
+    "id": "code-it-001",
+    "domain": "it_software",
+    "role": "Software Developer",
+    "topic": "arrays and loops",
+    "difficulty": "Beginner",
+    "title": "Find the Second Largest Number",
+    "problemStatement": "Given an array of integers, print the second largest distinct number. If it does not exist, print -1.",
+    "inputFormat": "The first line contains N. The second line contains N space-separated integers.",
+    "outputFormat": "Print one integer: the second largest distinct value, or -1 if it does not exist.",
+    "constraints": ["2 <= N <= 1000", "-10^6 <= arr[i] <= 10^6"],
+    "sampleInput": "5\n2 8 3 8 5",
+    "sampleOutput": "5",
+    "explanation": "The distinct values are 2, 8, 3, and 5. The second largest is 5.",
+    "supportedLanguages": ["python", "javascript", "java", "cpp"],
+    "timeLimit": 2,
+    "memoryLimit": 256,
+    "visibleTestCases": [
+      { "input": "5\n2 8 3 8 5", "output": "5", "explanation": "Second largest distinct value is 5." },
+      { "input": "4\n7 7 7 7", "output": "-1", "explanation": "No second distinct value exists." }
+    ],
+    "hiddenTestCases": [
+      { "input": "6\n-1 -3 -2 -4 -5 -2", "output": "-2" },
+      { "input": "2\n10 9", "output": "9" },
+      { "input": "5\n1 2 3 4 5", "output": "4" }
+    ],
+    "tags": ["arrays", "loops", "logic"]
+  },
+  {
+    "id": "code-it-002",
+    "domain": "it_software",
+    "role": "Backend Developer",
+    "topic": "strings and hashing",
+    "difficulty": "Intermediate",
+    "title": "First Non-Repeating Character",
+    "problemStatement": "Given a lowercase string, print the first character that appears exactly once. If every character repeats, print -1.",
+    "inputFormat": "A single line containing the string.",
+    "outputFormat": "Print one character or -1.",
+    "constraints": ["1 <= length <= 10^5"],
+    "sampleInput": "swiss",
+    "sampleOutput": "w",
+    "explanation": "The characters are s, w, i, s, s. The first non-repeating character is w.",
+    "supportedLanguages": ["python", "javascript", "java", "cpp"],
+    "timeLimit": 2,
+    "memoryLimit": 256,
+    "visibleTestCases": [
+      { "input": "swiss", "output": "w", "explanation": "w appears once before i." },
+      { "input": "aabbcc", "output": "-1", "explanation": "Every character repeats." }
+    ],
+    "hiddenTestCases": [
+      { "input": "leetcode", "output": "l" },
+      { "input": "aabcbd", "output": "c" },
+      { "input": "z", "output": "z" }
+    ],
+    "tags": ["strings", "hash map", "interview"]
+  },
+  {
+    "id": "code-it-003",
+    "domain": "it_software",
+    "role": "Frontend Developer",
+    "topic": "functions and arrays",
+    "difficulty": "Beginner",
+    "title": "Rotate Array by One Position",
+    "problemStatement": "Given an array of integers, rotate it to the right by one position and print the resulting array.",
+    "inputFormat": "The first line contains N. The second line contains N space-separated integers.",
+    "outputFormat": "Print the rotated array in one line separated by spaces.",
+    "constraints": ["1 <= N <= 10^4"],
+    "sampleInput": "5\n1 2 3 4 5",
+    "sampleOutput": "5 1 2 3 4",
+    "explanation": "The last element moves to the front.",
+    "supportedLanguages": ["python", "javascript", "java", "cpp"],
+    "timeLimit": 2,
+    "memoryLimit": 256,
+    "visibleTestCases": [
+      { "input": "5\n1 2 3 4 5", "output": "5 1 2 3 4", "explanation": "Rotate right once." },
+      { "input": "1\n9", "output": "9", "explanation": "Single-element array stays the same." }
+    ],
+    "hiddenTestCases": [
+      { "input": "4\n8 7 6 5", "output": "5 8 7 6" },
+      { "input": "3\n0 0 1", "output": "1 0 0" }
+    ],
+    "tags": ["arrays", "basics", "functions"]
+  }
+]
