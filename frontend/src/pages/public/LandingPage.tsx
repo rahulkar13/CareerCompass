@@ -7,7 +7,6 @@ import {
   FileCheck2,
   GraduationCap,
   LogIn,
-  LogOut,
   Moon,
   SearchCheck,
   ShieldCheck,
@@ -16,10 +15,10 @@ import {
   Target,
 } from 'lucide-react'
 import { type FormEvent, useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { AppModal } from '../../components/ui'
 import { BrandLogo } from '../../components/brandLogos'
-import { authApi, dashboardPathByRole, publicApi } from '../../services/api'
+import { authApi, publicApi } from '../../services/api'
 import { LoginForm, RegisterForm } from '../auth/AuthPages'
 
 const featureItems = [
@@ -122,11 +121,9 @@ const organizationStructuredData = {
 }
 
 export const LandingPage = () => {
-  const navigate = useNavigate()
   const [loginOpen, setLoginOpen] = useState(false)
   const [authMode, setAuthMode] = useState<'login' | 'register'>('login')
   const [session, setSession] = useState<ReturnType<typeof authApi.getSession>>(null)
-  const [sessionResolved, setSessionResolved] = useState(false)
   const [contactForm, setContactForm] = useState({
     fullName: '',
     email: '',
@@ -144,16 +141,6 @@ export const LandingPage = () => {
   const openAuth = (mode: 'login' | 'register') => {
     setAuthMode(mode)
     setLoginOpen(true)
-  }
-
-  const goToDashboard = () => {
-    if (session) navigate(dashboardPathByRole(session.user.role))
-  }
-
-  const logout = () => {
-    authApi.logout()
-    setSession(null)
-    navigate('/')
   }
 
   const goToSection = (id: string) => {
@@ -211,53 +198,6 @@ export const LandingPage = () => {
 
   useEffect(() => {
     setTheme(document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark')
-  }, [])
-
-  useEffect(() => {
-    let mounted = true
-
-    const syncSession = async () => {
-      const storedSession = authApi.getSession()
-      if (!mounted) return
-
-      if (!storedSession) {
-        setSession(null)
-        setSessionResolved(true)
-        return
-      }
-
-      try {
-        const refreshed = await authApi.refreshSession()
-        if (!mounted) return
-        setSession(refreshed)
-        setSessionResolved(true)
-      } catch {
-        if (!mounted) return
-        authApi.logout()
-        setSession(null)
-        setSessionResolved(true)
-      }
-    }
-
-    const handleStorage = () => {
-      void syncSession()
-    }
-
-    const handleVisibilityChange = () => {
-      if (document.visibilityState === 'visible') {
-        void syncSession()
-      }
-    }
-
-    void syncSession()
-    window.addEventListener('storage', handleStorage)
-    document.addEventListener('visibilitychange', handleVisibilityChange)
-
-    return () => {
-      mounted = false
-      window.removeEventListener('storage', handleStorage)
-      document.removeEventListener('visibilitychange', handleVisibilityChange)
-    }
   }, [])
 
   useEffect(() => {
@@ -329,25 +269,15 @@ export const LandingPage = () => {
                 {theme === 'light' ? <Sun size={13} /> : <Moon size={13} />}
               </span>
             </button>
-            {sessionResolved && session ? (
-              <>
-                <button onClick={goToDashboard} className="app-primary-button rounded-xl px-4 py-2 text-sm font-semibold">Get Started</button>
-                <button onClick={logout} className="app-logout-button inline-flex items-center gap-2 rounded-xl border px-4 py-2 text-sm font-semibold">
-                  <LogOut size={16} />
-                  <span>Logout</span>
-                </button>
-              </>
-            ) : (
-              <button
-                onClick={() => openAuth('login')}
-                className="landing-login-button inline-flex items-center gap-2 rounded-2xl px-4 py-2.5 text-sm font-semibold"
-              >
-                <span className="landing-login-button-icon inline-flex h-7 w-7 items-center justify-center rounded-full">
-                  <LogIn size={15} />
-                </span>
-                Login
-              </button>
-            )}
+            <button
+              onClick={() => openAuth('login')}
+              className="landing-login-button inline-flex items-center gap-2 rounded-2xl px-4 py-2.5 text-sm font-semibold"
+            >
+              <span className="landing-login-button-icon inline-flex h-7 w-7 items-center justify-center rounded-full">
+                <LogIn size={15} />
+              </span>
+              Login
+            </button>
           </div>
         </div>
       </header>
@@ -365,25 +295,14 @@ export const LandingPage = () => {
               Build your profile, upload your resume, explore suitable roles, identify skill gaps, prepare for interviews, and track job readiness across multiple domains, not only IT.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
-              {sessionResolved && session ? (
-                <>
-                  <Link to="/student/upload-resume" className="app-primary-button rounded-xl px-4 py-2 text-sm font-semibold">
-                    Upload Resume
-                  </Link>
-                  <button onClick={() => goToSection('how-it-works')} className="landing-header-action rounded-xl border border-indigo-300/45 px-4 py-2 text-sm text-indigo-100">
-                    See How It Works
-                  </button>
-                </>
-              ) : (
-                <>
-                  <button onClick={() => openAuth('register')} className="app-primary-button rounded-xl px-4 py-2 text-sm font-semibold">
-                    Get Started
-                  </button>
-                  <button onClick={() => goToSection('how-it-works')} className="landing-header-action rounded-xl border border-indigo-300/45 px-4 py-2 text-sm text-indigo-100">
-                    See How It Works
-                  </button>
-                </>
-              )}
+              <>
+                <button onClick={() => openAuth('register')} className="app-primary-button rounded-xl px-4 py-2 text-sm font-semibold">
+                  Get Started
+                </button>
+                <button onClick={() => goToSection('how-it-works')} className="landing-header-action rounded-xl border border-indigo-300/45 px-4 py-2 text-sm text-indigo-100">
+                  See How It Works
+                </button>
+              </>
             </div>
             <div className="mt-8 grid gap-3 sm:grid-cols-3">
               <div className="landing-stat rounded-xl border border-indigo-400/35 bg-[#121a38]/85 p-4">
