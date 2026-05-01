@@ -565,7 +565,7 @@ export const adminApi = {
 }
 
 export const dashboardPathByRole = (role: UserRole): string => {
-  if (role === 'recruiter') return '/recruiter/dashboard'
-  if (role === 'admin') return '/admin/dashboard'
-  return '/student/dashboard'
+  if (role === 'recruiter') return '/'
+  if (role === 'admin') return '/'
+  return '/'
 }
