@@ -125,7 +125,8 @@ export const LandingPage = () => {
   const navigate = useNavigate()
   const [loginOpen, setLoginOpen] = useState(false)
   const [authMode, setAuthMode] = useState<'login' | 'register'>('login')
-  const [session, setSession] = useState(() => authApi.getSession())
+  const [session, setSession] = useState<ReturnType<typeof authApi.getSession>>(null)
+  const [sessionResolved, setSessionResolved] = useState(false)
   const [contactForm, setContactForm] = useState({
     fullName: '',
     email: '',
@@ -221,18 +222,20 @@ export const LandingPage = () => {
 
       if (!storedSession) {
         setSession(null)
+        setSessionResolved(true)
         return
       }
-
-      setSession(storedSession)
 
       try {
         const refreshed = await authApi.refreshSession()
         if (!mounted) return
         setSession(refreshed)
+        setSessionResolved(true)
       } catch {
         if (!mounted) return
-        setSession(authApi.getSession())
+        authApi.logout()
+        setSession(null)
+        setSessionResolved(true)
       }
     }
 
@@ -326,7 +329,7 @@ export const LandingPage = () => {
                 {theme === 'light' ? <Sun size={13} /> : <Moon size={13} />}
               </span>
             </button>
-            {session ? (
+            {sessionResolved && session ? (
               <>
                 <button onClick={goToDashboard} className="app-primary-button rounded-xl px-4 py-2 text-sm font-semibold">Get Started</button>
                 <button onClick={logout} className="app-logout-button inline-flex items-center gap-2 rounded-xl border px-4 py-2 text-sm font-semibold">
@@ -362,7 +365,7 @@ export const LandingPage = () => {
               Build your profile, upload your resume, explore suitable roles, identify skill gaps, prepare for interviews, and track job readiness across multiple domains, not only IT.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
-              {session ? (
+              {sessionResolved && session ? (
                 <>
                   <Link to="/student/upload-resume" className="app-primary-button rounded-xl px-4 py-2 text-sm font-semibold">
                     Upload Resume
