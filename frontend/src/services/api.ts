@@ -1,7 +1,7 @@
 import type { StudentProfile, User, UserRole } from '../types'
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? 'http://127.0.0.1:5000'
-// const API_BASE_URL ='https://careercompass-zvlk.onrender.com'
+// const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? 'http://127.0.0.1:5000'
+const API_BASE_URL ='https://careercompass-zvlk.onrender.com'
 const AUTH_STORAGE_KEY = 'interview-prep-auth'
 
 interface ApiSuccess<T> {
