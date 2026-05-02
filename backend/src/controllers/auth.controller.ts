@@ -22,6 +22,10 @@ const isMailAuthFailure = (error: unknown): boolean => {
   const message = error instanceof Error ? error.message : String(error)
   return message.includes('Username and Password not accepted') || message.includes('BadCredentials')
 }
+const isMailNetworkFailure = (error: unknown): boolean => {
+  const message = error instanceof Error ? error.message : String(error)
+  return message.includes('ENETUNREACH') || message.includes('ETIMEDOUT') || message.includes('ECONNREFUSED')
+}
 
 export const getAuthenticatedUser = async (req: Request, res: Response): Promise<void> => {
   const user = await User.findById(req.user?.userId).select('-password')
@@ -84,6 +88,9 @@ export const requestRegistrationOtp = async (req: Request, res: Response): Promi
   } catch (error) {
     if (isMailAuthFailure(error)) {
       throw new ApiError(503, 'Gmail SMTP login failed. Update EMAIL_PASS in backend/.env with a valid Gmail App Password.')
+    }
+    if (isMailNetworkFailure(error)) {
+      throw new ApiError(503, 'Email OTP service could not reach Gmail SMTP from the server. Check EMAIL_HOST/EMAIL_PORT settings and hosting network access, then try again.')
     }
     throw error
   }
@@ -216,6 +223,9 @@ export const forgotPassword = async (req: Request, res: Response): Promise<void>
   } catch (error) {
     if (isMailAuthFailure(error)) {
       throw new ApiError(503, 'Gmail SMTP login failed. Update EMAIL_PASS in backend/.env with a valid Gmail App Password.')
+    }
+    if (isMailNetworkFailure(error)) {
+      throw new ApiError(503, 'Password reset email service could not reach Gmail SMTP from the server. Check EMAIL_HOST/EMAIL_PORT settings and hosting network access, then try again.')
     }
     throw error
   }

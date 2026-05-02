@@ -16,6 +16,9 @@ const transporter = isConfigured
       host: env.emailHost,
       port: env.emailPort,
       secure: env.emailSecure,
+      family: 4,
+      connectionTimeout: 15000,
+      greetingTimeout: 15000,
       auth: {
         user: env.emailUser,
         pass: env.emailPass,
