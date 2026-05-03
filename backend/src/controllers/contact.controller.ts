@@ -10,7 +10,7 @@ type ContactPayload = {
   message: string
 }
 
-const ownerEmail = 'rahulkar849@gmail.com'
+const ownerEmail = 'careercompass366@gmail.com'
 
 export const submitContactRequest = async (req: Request, res: Response): Promise<void> => {
   const payload = req.body as ContactPayload

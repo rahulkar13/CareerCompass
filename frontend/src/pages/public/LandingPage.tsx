@@ -606,7 +606,7 @@ export const LandingPage = () => {
           <div>
             <p className="font-semibold text-white">Support and trust</p>
             <div className="mt-2 grid gap-2 text-sm text-indigo-200/75">
-              <a href="mailto:rahulkar849@gmail.com">rahulkar849@gmail.com</a>
+              <a href="mailto:careercompass366@gmail.com">careercompass366@gmail.com</a>
               <button type="button" onClick={() => setContactOpen(true)} className="w-fit text-left">Contact us</button>
               <a href="#trust">Who this platform is for</a>
               <a href="#faq">Common questions</a>
@@ -626,7 +626,7 @@ export const LandingPage = () => {
         closeClassName="rounded-lg border border-indigo-400/45 p-1 text-indigo-200 hover:bg-indigo-500/20 hover:text-indigo-50"
       >
         <form onSubmit={(event) => void submitContactForm(event)} className="space-y-4 p-5">
-          <p className="text-sm text-slate-300">Send your message directly to <a href="mailto:rahulkar849@gmail.com" className="font-medium text-cyan-300 hover:text-cyan-200">rahulkar849@gmail.com</a>.</p>
+          <p className="text-sm text-slate-300">Send your message directly to <a href="mailto:careercompass366@gmail.com" className="font-medium text-cyan-300 hover:text-cyan-200">careercompass366@gmail.com</a>.</p>
           <div className="grid gap-3 md:grid-cols-2">
             <div>
               <label className="mb-2 block text-sm font-medium text-slate-200">Full name</label>
