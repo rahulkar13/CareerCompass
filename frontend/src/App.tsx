@@ -6,6 +6,25 @@ import { authApi } from './services/api'
 
 const THEME_KEY = 'interview-prep-theme'
 
+const isProtectedTextField = (target: EventTarget | null): target is HTMLInputElement | HTMLTextAreaElement => {
+  if (!(target instanceof HTMLElement)) return false
+  const field = target.closest('input, textarea')
+  if (!(field instanceof HTMLInputElement || field instanceof HTMLTextAreaElement)) return false
+  if (field instanceof HTMLInputElement && field.type === 'file') return false
+  return !field.readOnly && !field.disabled
+}
+
+const isLinkLikeDrop = (event: DragEvent) => {
+  const transfer = event.dataTransfer
+  if (!transfer) return false
+  if (transfer.files.length > 0) return false
+
+  const availableTypes = Array.from(transfer.types)
+  return availableTypes.includes('text/uri-list')
+    || availableTypes.includes('text/html')
+    || availableTypes.includes('text/plain')
+}
+
 const App = () => {
   useEffect(() => {
     const stored = localStorage.getItem(THEME_KEY)
@@ -49,6 +68,21 @@ const App = () => {
     return () => {
       mounted = false
       document.removeEventListener('visibilitychange', handleVisibilityChange)
+    }
+  }, [])
+
+  useEffect(() => {
+    const blockAccidentalLinkDrop = (event: DragEvent) => {
+      if (!isProtectedTextField(event.target) || !isLinkLikeDrop(event)) return
+      event.preventDefault()
+    }
+
+    document.addEventListener('dragover', blockAccidentalLinkDrop)
+    document.addEventListener('drop', blockAccidentalLinkDrop)
+
+    return () => {
+      document.removeEventListener('dragover', blockAccidentalLinkDrop)
+      document.removeEventListener('drop', blockAccidentalLinkDrop)
     }
   }, [])
 
