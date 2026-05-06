@@ -10,9 +10,9 @@ interface DashboardLayoutProps {
 export const DashboardLayout = ({ menu, roleTitle }: DashboardLayoutProps) => (
   <div className="app-layout min-h-screen md:flex md:h-screen md:overflow-hidden">
     <Sidebar items={menu} />
-    <div className="app-main-shell flex-1 md:flex md:min-h-0 md:flex-col md:overflow-hidden">
+    <div className="app-main-shell min-w-0 flex-1 md:flex md:min-h-0 md:flex-col md:overflow-hidden">
       <TopNav roleTitle={roleTitle} />
-      <main className="dashboard-surface p-4 md:min-h-0 md:flex-1 md:overflow-y-auto md:p-6">
+      <main className="dashboard-surface min-w-0 overflow-x-hidden p-3 sm:p-4 md:min-h-0 md:flex-1 md:overflow-y-auto lg:p-6">
         <Outlet />
       </main>
     </div>

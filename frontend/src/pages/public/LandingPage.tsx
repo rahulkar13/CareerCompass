@@ -303,8 +303,8 @@ export const LandingPage = () => {
   return (
     <div className="landing-root min-h-screen bg-[radial-gradient(circle_at_top_left,rgba(139,92,246,0.22),transparent_28%),radial-gradient(circle_at_top_right,rgba(6,182,212,0.22),transparent_28%),linear-gradient(180deg,#060914,#0d1535)] text-indigo-50">
       <header className="landing-header border-t border-indigo-300/35">
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-5">
-          <div className="landing-brand rounded-full border border-indigo-400/40 bg-[#121a38]/85 px-4 py-2">
+        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-4 py-4 sm:gap-4 sm:py-5">
+          <div className="landing-brand min-w-0 rounded-full border border-indigo-400/40 bg-[#121a38]/85 px-3 py-2 sm:px-4">
             <BrandLogo compact />
           </div>
           <nav className="hidden items-center gap-5 text-sm text-slate-300 lg:flex">
@@ -314,7 +314,7 @@ export const LandingPage = () => {
             <button onClick={() => goToSection('faq')} className="hover:text-white">FAQ</button>
             <button onClick={() => setContactOpen(true)} className="hover:text-white">Contact</button>
           </nav>
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center justify-end gap-2">
             <button
               onClick={toggleTheme}
               aria-label="Toggle dark and light theme"
@@ -340,7 +340,7 @@ export const LandingPage = () => {
                 <span className="landing-login-button-icon inline-flex h-7 w-7 items-center justify-center rounded-full">
                   <LogIn size={15} />
                 </span>
-                Login
+                <span className="hidden sm:inline">Login</span>
               </button>
             )}
           </div>
@@ -348,12 +348,12 @@ export const LandingPage = () => {
       </header>
 
       <main>
-        <section className="mx-auto grid max-w-7xl gap-8 px-4 py-10 md:grid-cols-[1.2fr_0.95fr] md:py-14">
-          <div>
-            <span className="landing-chip inline-flex items-center gap-2 rounded-full border border-fuchsia-400/40 bg-fuchsia-500/15 px-3 py-1 text-xs font-semibold text-fuchsia-100">
+        <section className="mx-auto grid max-w-7xl gap-6 overflow-hidden px-4 py-8 md:grid-cols-[1.2fr_0.95fr] md:gap-8 md:py-14">
+          <div className="min-w-0" style={{ maxWidth: 'calc(100vw - 2rem)' }}>
+            <span className="landing-chip flex max-w-full flex-wrap items-center gap-2 rounded-2xl border border-fuchsia-400/40 bg-fuchsia-500/15 px-3 py-1 text-xs font-semibold leading-relaxed text-fuchsia-100 sm:inline-flex sm:rounded-full">
               <Sparkles size={14} /> Career guidance, skill improvement, job matching, and interview preparation in one place
             </span>
-            <h1 className="landing-title mt-4 text-4xl font-bold leading-tight text-white md:text-5xl">
+            <h1 className="landing-title mt-4 max-w-full text-2xl font-bold leading-tight text-white min-[420px]:text-3xl sm:text-4xl md:text-5xl">
               CareerCompass helps students understand where they fit and what to improve next.
             </h1>
             <p className="landing-copy mt-4 max-w-3xl text-slate-300">
@@ -396,7 +396,7 @@ export const LandingPage = () => {
             </div>
           </div>
 
-          <div className="landing-panel rounded-2xl border border-indigo-400/35 bg-[#121a38]/85 p-6 shadow-sm">
+          <div className="landing-panel min-w-0 rounded-2xl border border-indigo-400/35 bg-[#121a38]/85 p-4 shadow-sm sm:p-6" style={{ maxWidth: 'calc(100vw - 2rem)' }}>
             <p className="landing-kicker text-sm font-semibold text-cyan-200">What CareerCompass is for</p>
             <h2 className="landing-panel-title mt-2 text-2xl font-semibold text-white">A practical dashboard for early-career decisions</h2>
             <p className="landing-panel-copy mt-3 text-sm text-slate-400">
@@ -421,7 +421,7 @@ export const LandingPage = () => {
         </section>
 
         <section id="trust" className="mx-auto max-w-7xl px-4 py-6">
-          <div className="landing-panel rounded-2xl border border-indigo-400/35 bg-[#121a38]/85 p-6 shadow-sm">
+          <div className="landing-panel rounded-2xl border border-indigo-400/35 bg-[#121a38]/85 p-4 shadow-sm sm:p-6">
             <h2 className="landing-section-title text-2xl font-semibold text-white">Who CareerCompass helps</h2>
             <p className="landing-copy mt-3 text-slate-300">
               CareerCompass is designed for students and job seekers who want a clearer path from profile building to job readiness. It supports engineering students, commerce students, marketing learners, domain-switchers, and general freshers. The platform does not assume every user is preparing only for software jobs.

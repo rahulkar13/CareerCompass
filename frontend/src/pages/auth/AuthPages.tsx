@@ -3,9 +3,9 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { authApi, dashboardPathByRole } from '../../services/api'
 
 const AuthShell = ({ title, subtitle, children }: { title: string; subtitle: string; children: ReactNode }) => (
-  <div className="auth-root grid min-h-screen place-items-center bg-[radial-gradient(circle_at_top_left,rgba(139,92,246,0.26),transparent_30%),radial-gradient(circle_at_bottom_right,rgba(6,182,212,0.24),transparent_35%),linear-gradient(180deg,#070b1a,#111b3d)] p-4">
-    <div className="w-full max-w-md rounded-2xl border border-indigo-400/45 bg-[#121a38]/90 p-6 shadow-[0_24px_70px_-35px_rgba(6,182,212,0.72)] backdrop-blur-sm">
-      <h1 className="text-2xl font-semibold text-indigo-50">{title}</h1>
+  <div className="auth-root grid min-h-screen place-items-center bg-[radial-gradient(circle_at_top_left,rgba(139,92,246,0.26),transparent_30%),radial-gradient(circle_at_bottom_right,rgba(6,182,212,0.24),transparent_35%),linear-gradient(180deg,#070b1a,#111b3d)] p-3 sm:p-4">
+    <div className="w-full max-w-md rounded-2xl border border-indigo-400/45 bg-[#121a38]/90 p-4 shadow-[0_24px_70px_-35px_rgba(6,182,212,0.72)] backdrop-blur-sm sm:p-6">
+      <h1 className="text-xl font-semibold text-indigo-50 sm:text-2xl">{title}</h1>
       <p className="mb-5 text-sm text-indigo-200/75">{subtitle}</p>
       {children}
     </div>
@@ -366,7 +366,7 @@ export const RegisterForm = ({
             <Field label="Email OTP" labelClassName={styles.label}>
               <input className={styles.input} placeholder="Enter 6-digit OTP" value={otp} onChange={(event) => setOtp(event.target.value.replace(/\D/g, '').slice(0, 6))} inputMode="numeric" />
             </Field>
-            <div className="mt-3 flex items-center justify-between gap-3">
+            <div className="mt-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
               <p className={styles.sectionCopy}>Didn&apos;t receive the code? Request a fresh OTP for this email.</p>
               <button
                 type="button"

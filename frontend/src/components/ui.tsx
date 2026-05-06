@@ -118,18 +118,18 @@ export const CompactPagination = ({
   if (totalPages <= 1) return null
 
   return (
-    <div className={classNames('flex flex-wrap items-center justify-between gap-3 px-1 py-2 text-sm', className)}>
-      <p className="text-slate-500">Page {page} of {totalPages}</p>
-      <div className="flex flex-wrap items-center gap-2">
+    <div className={classNames('flex flex-col gap-3 px-1 py-2 text-sm sm:flex-row sm:items-center sm:justify-between', className)}>
+      <p className="shrink-0 text-slate-500">Page {page} of {totalPages}</p>
+      <div className="flex min-w-0 items-center gap-2 overflow-x-auto pb-1 sm:flex-wrap sm:overflow-visible sm:pb-0">
         <button
           type="button"
-          className="rounded-xl border px-3 py-2 text-sm font-medium text-slate-600 transition hover:border-slate-300 hover:text-slate-900 disabled:cursor-not-allowed disabled:opacity-45"
+          className="shrink-0 rounded-xl border px-3 py-2 text-sm font-medium text-slate-600 transition hover:border-slate-300 hover:text-slate-900 disabled:cursor-not-allowed disabled:opacity-45"
           disabled={page <= 1}
           onClick={() => onChange(page - 1)}
         >
           Previous
         </button>
-        <div className="flex flex-wrap items-center gap-2">
+        <div className="flex shrink-0 items-center gap-2 sm:flex-wrap">
           {getCompactPaginationItems(page, totalPages).map((item, index) => (
             typeof item === 'number' ? (
               <button
@@ -137,7 +137,7 @@ export const CompactPagination = ({
                 type="button"
                 onClick={() => onChange(item)}
                 className={classNames(
-                  'min-w-10 rounded-xl border px-3 py-2 text-sm font-medium transition',
+                  'min-w-10 shrink-0 rounded-xl border px-3 py-2 text-sm font-medium transition',
                   item === page
                     ? 'bg-[var(--accent-primary)] text-white shadow-sm'
                     : 'text-slate-600 hover:border-slate-300 hover:text-slate-900',
@@ -152,7 +152,7 @@ export const CompactPagination = ({
         </div>
         <button
           type="button"
-          className="rounded-xl border px-3 py-2 text-sm font-medium text-slate-600 transition hover:border-slate-300 hover:text-slate-900 disabled:cursor-not-allowed disabled:opacity-45"
+          className="shrink-0 rounded-xl border px-3 py-2 text-sm font-medium text-slate-600 transition hover:border-slate-300 hover:text-slate-900 disabled:cursor-not-allowed disabled:opacity-45"
           disabled={page >= totalPages}
           onClick={() => onChange(page + 1)}
         >
@@ -413,7 +413,7 @@ export const AppSelect = ({
 }
 
 export const Card = ({ children, className = '' }: PropsWithChildren<{ className?: string }>) => (
-  <div className={classNames('app-card rounded-2xl border p-5 backdrop-blur-sm', className)}>{children}</div>
+  <div className={classNames('app-card min-w-0 rounded-2xl border p-4 backdrop-blur-sm sm:p-5', className)}>{children}</div>
 )
 
 export const StatCards = ({ stats }: { stats: DashboardStats[] }) => (
@@ -429,24 +429,24 @@ export const StatCards = ({ stats }: { stats: DashboardStats[] }) => (
 )
 
 export const PageHeader = ({ title, subtitle, action }: { title: string; subtitle: string; action?: ReactNode }) => (
-  <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
-    <div>
-      <h1 className="text-2xl font-bold text-white">{title}</h1>
-      <p className="text-sm text-slate-400">{subtitle}</p>
+  <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+    <div className="min-w-0">
+      <h1 className="break-words text-xl font-bold text-white sm:text-2xl">{title}</h1>
+      <p className="mt-1 max-w-3xl text-sm text-slate-400">{subtitle}</p>
     </div>
-    {action}
+    {action ? <div className="flex w-full flex-wrap gap-2 sm:w-auto sm:justify-end">{action}</div> : null}
   </div>
 )
 
 export const Sidebar = ({ items }: { items: MenuItem[] }) => (
-  <aside className="app-sidebar w-full border-r md:h-screen md:w-72 md:flex-shrink-0 md:overflow-y-auto">
-    <div className="border-b p-4">
-      <Link to="/" className="inline-flex items-center">
+  <aside className="app-sidebar w-full border-b md:h-screen md:w-72 md:flex-shrink-0 md:overflow-y-auto md:border-b-0 md:border-r">
+    <div className="flex items-center justify-between gap-3 border-b px-3 py-3 md:block md:p-4">
+      <Link to="/" className="inline-flex min-w-0 items-center">
         <BrandLogo compact />
       </Link>
-      <p className="text-xs text-indigo-200/75">Interview Prep System</p>
+      <p className="hidden shrink-0 text-xs text-indigo-200/75 sm:block md:mt-1">Interview Prep System</p>
     </div>
-    <nav className="space-y-1 p-3">
+    <nav className="flex gap-2 overflow-x-auto px-3 py-2 md:block md:space-y-1 md:overflow-visible md:p-3">
       {items.map((item) => {
         const Icon = iconMap[item.icon]
         return (
@@ -455,7 +455,7 @@ export const Sidebar = ({ items }: { items: MenuItem[] }) => (
             to={item.path}
             className={({ isActive }) =>
               classNames(
-                'app-nav-link flex items-center gap-2 rounded-xl px-3 py-2.5 text-sm transition',
+                'app-nav-link flex shrink-0 items-center gap-2 whitespace-nowrap rounded-xl px-3 py-2.5 text-sm transition md:w-full',
                 isActive ? 'app-nav-link-active font-semibold text-slate-950' : 'text-indigo-100',
               )
             }
@@ -680,11 +680,11 @@ export const TopNav = ({ roleTitle }: { roleTitle: string }) => {
 
   return (
     <>
-      <header className="app-topnav sticky top-0 z-10 flex items-center justify-between border-b px-4 py-3 backdrop-blur">
-        <div className="flex items-center gap-3">
+      <header className="app-topnav sticky top-0 z-10 flex flex-col gap-3 border-b px-3 py-3 backdrop-blur sm:flex-row sm:items-center sm:justify-between sm:px-4">
+        <div className="flex min-w-0 items-center gap-3">
           <span className="app-role-pill rounded-full border px-3 py-1 text-xs font-semibold">{roleTitle}</span>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex w-full flex-wrap items-center justify-between gap-2 sm:w-auto sm:justify-end sm:gap-3">
           <button
             onClick={toggleTheme}
             aria-label="Toggle dark and light theme"
@@ -851,7 +851,7 @@ export const DataTable = ({
         />
       </div>
       <div className="overflow-x-auto">
-        <table className="w-full text-left text-sm">
+        <table className="min-w-[42rem] w-full text-left text-sm md:min-w-full">
           <thead>
             <tr className="border-b border-indigo-500/20 text-indigo-200/75">
               {columns.map((column) => (
