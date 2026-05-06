@@ -1,6 +1,6 @@
 import type { StudentProfile, User, UserRole } from '../types'
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? 'http://carrercompass.ap-southeast-2.elasticbeanstalk.com'
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? ''
 const AUTH_STORAGE_KEY = 'interview-prep-auth'
 
 interface ApiSuccess<T> {
