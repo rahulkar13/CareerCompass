@@ -34,7 +34,7 @@ export const env = {
   emailSecure: String(process.env.EMAIL_SECURE ?? 'false').toLowerCase() === 'true',
   emailFromName: process.env.EMAIL_FROM_NAME ?? 'CareerCompass',
   emailFrom: process.env.EMAIL_FROM ?? process.env.EMAIL_USER ?? 'no-reply@careercompass.local',
-  allowOtpFallback: String(process.env.ALLOW_OTP_FALLBACK ?? 'false').toLowerCase() === 'true',
+  enableReminderScheduler: String(process.env.ENABLE_REMINDER_SCHEDULER ?? 'true').toLowerCase() === 'true',
   openAiApiKey: process.env.OPENAI_API_KEY ?? '',
   youtubeApiKey: process.env.YOUTUBE_API_KEY ?? '',
   codeExecutionBaseUrl: process.env.CODE_EXECUTION_BASE_URL ?? 'https://ce.judge0.com',

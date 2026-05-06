@@ -5,7 +5,11 @@ import { startReminderScheduler } from './services/reminderService'
 
 const start = async (): Promise<void> => {
   await connectDb()
-  startReminderScheduler()
+  if (env.enableReminderScheduler) {
+    startReminderScheduler()
+  } else {
+    console.log('Reminder scheduler disabled by environment configuration')
+  }
   app.listen(env.port, () => {
     console.log(`API server listening on port ${env.port}`)
   })

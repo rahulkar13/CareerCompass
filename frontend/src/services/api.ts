@@ -1,7 +1,6 @@
 import type { StudentProfile, User, UserRole } from '../types'
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? 'http://127.0.0.1:5000'
-// const API_BASE_URL ='https://careercompass-zvlk.onrender.com'
 const AUTH_STORAGE_KEY = 'interview-prep-auth'
 
 interface ApiSuccess<T> {
@@ -73,7 +72,7 @@ const request = async <T>(path: string, options: RequestInit = {}): Promise<T> =
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error)
     if (message.toLowerCase().includes('fetch')) {
-      throw new Error('Cannot connect to the backend server. Make sure the backend is running on http://127.0.0.1:5000.')
+      throw new Error(`Cannot connect to the backend server. Make sure the backend is running at ${API_BASE_URL}.`)
     }
     throw error
   }
